@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -781,6 +781,7 @@ require('lazy').setup({
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
             group_index = 0,
           },
+          { name = 'copilot' },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
@@ -904,6 +905,34 @@ require('lazy').setup({
 
       vim.keymap.set('n', '<leader>bk', '<cmd>NvimTreeToggle<CR>')
     end,
+  },
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if prefer nvim-web-devicons
+    config = function()
+      require('oil').setup()
+      vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+    end,
+  },
+  {
+    'zbirenbaum/copilot-cmp',
+    event = 'InsertEnter',
+    config = function()
+      require('copilot_cmp').setup()
+    end,
+    dependencies = {
+      'zbirenbaum/copilot.lua',
+      cmd = 'Copilot',
+      config = function()
+        require('copilot').setup {
+          suggestion = { enabled = false },
+          panel = { enabled = false },
+        }
+      end,
+    },
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
