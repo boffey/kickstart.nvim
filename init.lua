@@ -589,6 +589,17 @@ require('lazy').setup({
         -- tsserver = {},
         --
 
+        volar = {
+          on_attach = function(client, bufnr)
+            -- Disable LSP formatting for Volar
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+
+            -- If you have other on_attach functionality, call it here
+            -- like keybindings or other settings
+          end,
+        },
+
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
